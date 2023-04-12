@@ -16,7 +16,6 @@ use ironfish_rust::sapling_bls12;
 pub mod mpc;
 pub mod nacl;
 pub mod rolling_filter;
-pub mod signal_catcher;
 pub mod structs;
 
 fn to_napi_err(err: impl Display) -> napi::Error {

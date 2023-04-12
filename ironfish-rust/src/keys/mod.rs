@@ -193,7 +193,7 @@ impl SaplingKey {
             .map_err(|_| IronfishError::InvalidMnemonicString)?;
         let bytes = mnemonic.entropy();
         let mut byte_arr = [0; SPEND_KEY_SIZE];
-        byte_arr.clone_from_slice(&bytes[0..SPEND_KEY_SIZE]);
+        byte_arr[bytes.len()..].clone_from_slice(&bytes[0..bytes.len()]);
         Self::new(byte_arr)
     }
 

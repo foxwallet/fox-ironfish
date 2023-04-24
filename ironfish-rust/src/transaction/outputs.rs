@@ -54,9 +54,9 @@ impl OutputBuilder {
 
     /// Sets the `is_miners_fee` flag to true, indicating that this output is to
     /// be used for a miner's fee transaction.
-    pub(crate) fn set_is_miners_fee(&mut self) {
-        self.is_miners_fee = true;
-    }
+    // pub(crate) fn set_is_miners_fee(&mut self) {
+    //     self.is_miners_fee = true;
+    // }
 
     /// Get the value_commitment from this proof as an edwards Point.
     ///

@@ -229,25 +229,25 @@ impl ProposedTransaction {
     /// or change and therefore have a negative transaction fee. In normal use,
     /// a miner would not accept such a transaction unless it was explicitly set
     /// as the miners fee.
-    pub fn post_miners_fee(&mut self) -> Result<Transaction, IronfishError> {
-        if !self.spends.is_empty()
-            || self.outputs.len() != 1
-            || !self.mints.is_empty()
-            || !self.burns.is_empty()
-        {
-            return Err(IronfishError::InvalidMinersFeeTransaction);
-        }
-        self.post_miners_fee_unchecked()
-    }
+    // pub fn post_miners_fee(&mut self) -> Result<Transaction, IronfishError> {
+    //     if !self.spends.is_empty()
+    //         || self.outputs.len() != 1
+    //         || !self.mints.is_empty()
+    //         || !self.burns.is_empty()
+    //     {
+    //         return Err(IronfishError::InvalidMinersFeeTransaction);
+    //     }
+    //     self.post_miners_fee_unchecked()
+    // }
 
-    /// Do not call this directly -- see post_miners_fee.
-    pub fn post_miners_fee_unchecked(&mut self) -> Result<Transaction, IronfishError> {
-        // Set note_encryption_keys to a constant value on the outputs
-        for output in &mut self.outputs {
-            output.set_is_miners_fee();
-        }
-        self._partial_post()
-    }
+    // /// Do not call this directly -- see post_miners_fee.
+    // pub fn post_miners_fee_unchecked(&mut self) -> Result<Transaction, IronfishError> {
+    //     // Set note_encryption_keys to a constant value on the outputs
+    //     for output in &mut self.outputs {
+    //         output.set_is_miners_fee();
+    //     }
+    //     self._partial_post()
+    // }
 
     /// Get the expiration sequence for this transaction
     pub fn expiration(&self) -> u32 {

@@ -17,7 +17,7 @@ use std::string;
 pub enum IronfishError {
     BellmanSynthesis(bellman::SynthesisError),
     BellmanVerification(bellman::VerificationError),
-    CryptoBox(crypto_box::aead::Error),
+    // CryptoBox(crypto_box::aead::Error),
     IllegalValue,
     InconsistentWitness,
     InvalidAssetIdentifier,
@@ -62,11 +62,11 @@ impl From<io::Error> for IronfishError {
     }
 }
 
-impl From<crypto_box::aead::Error> for IronfishError {
-    fn from(e: crypto_box::aead::Error) -> IronfishError {
-        IronfishError::CryptoBox(e)
-    }
-}
+// impl From<crypto_box::aead::Error> for IronfishError {
+//     fn from(e: crypto_box::aead::Error) -> IronfishError {
+//         IronfishError::CryptoBox(e)
+//     }
+// }
 
 impl From<string::FromUtf8Error> for IronfishError {
     fn from(e: string::FromUtf8Error) -> IronfishError {

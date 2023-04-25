@@ -4,7 +4,7 @@
 use bellman::groth16;
 use bls12_381::Bls12;
 
-use crate::{errors::IronfishError, sapling_bls12::SAPLING};
+use crate::{errors::IronfishError, sapling_bls12::SaplingWrapper};
 
 /// Helper function for verifying spend proof internally. Note that this is not
 /// called by verifiers as part of transaction verification. See
@@ -13,7 +13,7 @@ pub(crate) fn verify_spend_proof(
     proof: &groth16::Proof<Bls12>,
     inputs: &[bls12_381::Scalar],
 ) -> Result<(), IronfishError> {
-    groth16::verify_proof(&SAPLING.spend_verifying_key, proof, inputs)?;
+    groth16::verify_proof(&SaplingWrapper::global().spend_verifying_key, proof, inputs)?;
 
     Ok(())
 }
@@ -25,7 +25,7 @@ pub(crate) fn verify_output_proof(
     proof: &groth16::Proof<Bls12>,
     inputs: &[bls12_381::Scalar],
 ) -> Result<(), IronfishError> {
-    groth16::verify_proof(&SAPLING.output_verifying_key, proof, inputs)?;
+    groth16::verify_proof(&SaplingWrapper::global().output_verifying_key, proof, inputs)?;
 
     Ok(())
 }
@@ -37,7 +37,7 @@ pub(crate) fn verify_mint_proof(
     proof: &groth16::Proof<Bls12>,
     inputs: &[bls12_381::Scalar],
 ) -> Result<(), IronfishError> {
-    groth16::verify_proof(&SAPLING.mint_verifying_key, proof, inputs)?;
+    groth16::verify_proof(&SaplingWrapper::global().mint_verifying_key, proof, inputs)?;
 
     Ok(())
 }

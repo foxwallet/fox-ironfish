@@ -16,7 +16,7 @@ use ironfish_zkp::{
 use jubjub::ExtendedPoint;
 use rand::thread_rng;
 
-use crate::{assets::asset::Asset, errors::IronfishError, sapling_bls12::SAPLING, SaplingKey};
+use crate::{assets::asset::Asset, errors::IronfishError, sapling_bls12::SaplingWrapper, SaplingKey};
 
 use super::utils::verify_mint_proof;
 
@@ -46,7 +46,7 @@ impl MintBuilder {
             public_key_randomness: Some(*public_key_randomness),
         };
 
-        let proof = groth16::create_random_proof(circuit, &SAPLING.mint_params, &mut thread_rng())?;
+        let proof = groth16::create_random_proof(circuit, &SaplingWrapper::global().mint_params, &mut thread_rng())?;
 
         let blank_signature = {
             let buf = [0u8; 64];

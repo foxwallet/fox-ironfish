@@ -25,6 +25,9 @@ pub use {
         TRANSACTION_VERSION,
     },
 };
+use std::fs::File;
+use std::io::Read;
+use std::path::Path;
 
 #[cfg(test)]
 pub(crate) mod test_util; // I'm not sure if this is the right way to publish the utility library.
@@ -47,14 +50,22 @@ pub struct Sapling {
 }
 
 impl Sapling {
+    fn load_file(file_path: &str) -> Result<Vec<u8>, String> {
+        let path = Path::new(&file_path);
+        let mut file = File::open(&path).map_err(|e| e.to_string())?;
+        let mut data = Vec::new();
+        file.read_to_end(&mut data).map_err(|e| e.to_string())?;
+        Ok(data)
+    }
+
     /// Initialize a Sapling instance and prepare for proving. Load the parameters from a config file
     /// at a known location (`./sapling_params`, for now).
-    pub fn load() -> Self {
+    pub fn load(mint_params_path: String, spend_params_path: String, output_params_path: String) -> Result<Self, String> {
         // TODO: We'll need to build our own parameters using a trusted set up at some point.
         // These params were borrowed from zcash
-        let spend_bytes = include_bytes!("sapling_params/sapling-spend.params");
-        let output_bytes = include_bytes!("sapling_params/sapling-output.params");
-        let mint_bytes = include_bytes!("sapling_params/sapling-mint.params");
+        let spend_bytes = Sapling::load_file(&spend_params_path)?;
+        let output_bytes = Sapling::load_file(&output_params_path)?;
+        let mint_bytes = Sapling::load_file(&mint_params_path)?;
 
         let spend_params = Sapling::load_params(&spend_bytes[..]);
         let output_params = Sapling::load_params(&output_bytes[..]);
@@ -64,14 +75,14 @@ impl Sapling {
         let output_vk = groth16::prepare_verifying_key(&output_params.vk);
         let mint_vk = groth16::prepare_verifying_key(&mint_params.vk);
 
-        Sapling {
+        Ok(Sapling {
             spend_verifying_key: spend_vk,
             output_verifying_key: output_vk,
             mint_verifying_key: mint_vk,
             spend_params,
             output_params,
             mint_params,
-        }
+        })
     }
 
     /// Load sapling parameters from a provided filename. The parameters are huge and take a

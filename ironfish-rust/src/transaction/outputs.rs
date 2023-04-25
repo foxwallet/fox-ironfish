@@ -7,7 +7,7 @@ use crate::{
     keys::{EphemeralKeyPair, SaplingKey},
     merkle_note::MerkleNote,
     note::Note,
-    sapling_bls12::SAPLING,
+    sapling_bls12::SaplingWrapper,
 };
 
 use bellman::groth16;
@@ -92,7 +92,7 @@ impl OutputBuilder {
         };
 
         let proof =
-            groth16::create_random_proof(circuit, &SAPLING.output_params, &mut thread_rng())?;
+            groth16::create_random_proof(circuit, &SaplingWrapper::global().output_params, &mut thread_rng())?;
         let merkle_note = if self.is_miners_fee {
             MerkleNote::new_for_miners_fee(&self.note, &self.value_commitment, &diffie_hellman_keys)
         } else {

@@ -15,7 +15,7 @@ use crate::{
     errors::IronfishError,
     keys::{PublicAddress, SaplingKey},
     note::Note,
-    sapling_bls12::SAPLING,
+    sapling_bls12::SaplingWrapper,
     witness::WitnessTrait,
     OutputDescription, SpendDescription,
 };
@@ -831,9 +831,9 @@ pub fn batch_verify_transactions<'a>(
         transaction.verify_binding_signature(&binding_verification_key)?;
     }
 
-    spend_verifier.verify(&mut OsRng, &SAPLING.spend_params.vk)?;
-    output_verifier.verify(&mut OsRng, &SAPLING.output_params.vk)?;
-    mint_verifier.verify(&mut OsRng, &SAPLING.mint_params.vk)?;
+    spend_verifier.verify(&mut OsRng, &SaplingWrapper::global().spend_params.vk)?;
+    output_verifier.verify(&mut OsRng, &SaplingWrapper::global().output_params.vk)?;
+    mint_verifier.verify(&mut OsRng, &SaplingWrapper::global().mint_params.vk)?;
 
     Ok(())
 }

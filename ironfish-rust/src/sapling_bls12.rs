@@ -4,7 +4,6 @@
 pub use bls12_381::Scalar;
 use crate::Sapling;
 use once_cell::sync::OnceCell;
-use std::sync::{Arc, Mutex};
 
 pub static SAPLING: OnceCell<Sapling> = OnceCell::new();
 

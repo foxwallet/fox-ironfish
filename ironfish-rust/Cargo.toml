@@ -36,7 +36,7 @@ name = "ironfish"
 path = "src/lib.rs"
 
 [dependencies]
-ironfish-bellperson = { version = "0.1.0", features = ["groth16"] }
+ironfish-bellperson = { version = "0.2.0", path = "../ironfish-bellperson", features = ["groth16"] }
 blake2b_simd = "1.0.0"
 blake2s_simd = "1.0.0"
 blake3 = "1.5.0"

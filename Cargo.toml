@@ -4,7 +4,7 @@ resolver = "2"
 members = [
     "benchmarks",
     "ironfish-rust",
-#    "ironfish-rust-nodejs",
+    "ironfish-bellperson",
     "ironfish-rust-wasm",
     "ironfish-zkp",
 ]
@@ -17,3 +17,6 @@ repository = "https://github.com/iron-fish/ironfish"
 
 [profile.release]
 debug = true
+
+[patch.crates-io]
+ironfish-bellperson = { version = "0.2.0", path = "./ironfish-bellperson", features = ["groth16"] }

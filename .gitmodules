@@ -1,0 +1,3 @@
+[submodule "ironfish-bellperson"]
+	path = ironfish-bellperson
+	url = https://github.com/foxwallet/ironfish-bellperson.git

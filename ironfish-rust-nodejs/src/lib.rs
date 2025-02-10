@@ -139,7 +139,7 @@ pub fn generate_key_from_private_key(private_key: String) -> Result<Key> {
 #[napi]
 pub fn initialize_sapling() {
     // Deref the `SAPLING` lazy-static, to ensure it gets initialized
-    let _ = &*sapling_bls12::SAPLING;
+    let _ = &*sapling_bls12::SaplingWrapper::global();
 }
 
 #[napi(constructor)]

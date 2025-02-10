@@ -4,7 +4,7 @@
 
 use crate::{
     errors::{IronfishError, IronfishErrorKind},
-    sapling_bls12::SAPLING,
+    sapling_bls12::SaplingWrapper,
     transaction::Transaction,
 };
 use blstrs::Bls12;
@@ -19,7 +19,7 @@ pub(crate) fn verify_spend_proof(
     proof: &groth16::Proof<Bls12>,
     inputs: &[blstrs::Scalar],
 ) -> Result<(), IronfishError> {
-    if !groth16::verify_proof(&SAPLING.spend_verifying_key, proof, inputs)? {
+    if !groth16::verify_proof(&SaplingWrapper::global().spend_verifying_key, proof, inputs)? {
         return Err(IronfishError::new(IronfishErrorKind::InvalidSpendProof));
     }
 
@@ -33,7 +33,7 @@ pub(crate) fn verify_output_proof(
     proof: &groth16::Proof<Bls12>,
     inputs: &[blstrs::Scalar],
 ) -> Result<(), IronfishError> {
-    if !groth16::verify_proof(&SAPLING.output_verifying_key, proof, inputs)? {
+    if !groth16::verify_proof(&SaplingWrapper::global().output_verifying_key, proof, inputs)? {
         return Err(IronfishError::new(IronfishErrorKind::InvalidOutputProof));
     }
 
@@ -47,7 +47,7 @@ pub(crate) fn verify_mint_proof(
     proof: &groth16::Proof<Bls12>,
     inputs: &[blstrs::Scalar],
 ) -> Result<(), IronfishError> {
-    if !groth16::verify_proof(&SAPLING.mint_verifying_key, proof, inputs)? {
+    if !groth16::verify_proof(&SaplingWrapper::global().mint_verifying_key, proof, inputs)? {
         return Err(IronfishError::new(IronfishErrorKind::InvalidMintProof));
     }
 
@@ -182,8 +182,8 @@ pub fn batch_verify_transactions<'a>(
 ) -> Result<(), IronfishError> {
     internal_batch_verify_transactions(
         transactions,
-        &SAPLING.spend_verifying_key,
-        &SAPLING.output_verifying_key,
-        &SAPLING.mint_verifying_key,
+        &SaplingWrapper::global().spend_verifying_key,
+        &SaplingWrapper::global().output_verifying_key,
+        &SaplingWrapper::global().mint_verifying_key,
     )
 }

@@ -17,7 +17,7 @@ use std::io;
 #[cfg(feature = "transaction-proofs")]
 use super::verify::verify_output_proof;
 #[cfg(feature = "transaction-proofs")]
-use crate::{keys::EphemeralKeyPair, note::Note, sapling_bls12::SAPLING, OutgoingViewKey};
+use crate::{keys::EphemeralKeyPair, note::Note, sapling_bls12::SaplingWrapper, OutgoingViewKey};
 #[cfg(feature = "transaction-proofs")]
 use ironfish_zkp::{primitives::ValueCommitment, proofs::Output, ProofGenerationKey};
 #[cfg(feature = "transaction-proofs")]
@@ -101,7 +101,7 @@ impl OutputBuilder {
         };
 
         let proof =
-            groth16::create_random_proof(circuit, &SAPLING.output_params, &mut thread_rng())?;
+            groth16::create_random_proof(circuit, &SaplingWrapper::global().output_params, &mut thread_rng())?;
         let merkle_note = if self.is_miners_fee {
             MerkleNote::new_for_miners_fee(&self.note, &self.value_commitment, &diffie_hellman_keys)
         } else {

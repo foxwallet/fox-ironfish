@@ -4,11 +4,21 @@
 
 use crate::Sapling;
 use lazy_static::lazy_static;
-
 pub use blstrs::Scalar;
+use once_cell::sync::OnceCell;
 
-// Loads the Sapling object once when dereferenced,
-// then reuses the reference on future calls.
-lazy_static! {
-    pub static ref SAPLING: Sapling = Sapling::load();
+pub static SAPLING: OnceCell<Sapling> = OnceCell::new();
+
+pub struct SaplingWrapper {}
+
+impl SaplingWrapper {
+    pub fn global() -> &'static Sapling {
+        SAPLING.get().expect("Sapling is not initialized")
+    }
+
+    pub fn load(mint_params_path: String, spend_params_path: String, output_params_path: String) -> Result<bool, String> {
+        SAPLING.get_or_try_init(|| -> Result<Sapling, String> {
+            Sapling::load(mint_params_path, spend_params_path, output_params_path)
+        }).map(|_| true)
+    }
 }

@@ -23,7 +23,7 @@ use rand::thread_rng;
 use std::io;
 
 #[cfg(feature = "transaction-proofs")]
-use crate::{sapling_bls12::SAPLING, transaction::verify::verify_mint_proof};
+use crate::{sapling_bls12::SaplingWrapper, transaction::verify::verify_mint_proof};
 #[cfg(feature = "transaction-proofs")]
 use ironfish_zkp::{proofs::MintAsset, ProofGenerationKey};
 
@@ -70,7 +70,7 @@ impl MintBuilder {
             public_key_randomness: Some(*public_key_randomness),
         };
 
-        let proof = groth16::create_random_proof(circuit, &SAPLING.mint_params, &mut thread_rng())?;
+        let proof = groth16::create_random_proof(circuit, &SaplingWrapper::global().mint_params, &mut thread_rng())?;
 
         let blank_signature = {
             let buf = [0u8; 64];

@@ -14,7 +14,7 @@ use crate::{
     keys::SaplingKey,
     merkle_note::NOTE_ENCRYPTION_MINER_KEYS,
     note::Note,
-    sapling_bls12::SAPLING,
+    sapling_bls12::SaplingWrapper,
     test_util::{create_multisig_identities, make_fake_witness},
     transaction::{
         verify::batch_verify_transactions, verify::internal_batch_verify_transactions,
@@ -524,8 +524,8 @@ fn test_batch_verify_wrong_spend_params() {
     internal_batch_verify_transactions(
         [&transaction1, &transaction2],
         &wrong_spend_vk,
-        &SAPLING.output_verifying_key,
-        &SAPLING.mint_verifying_key,
+        &SaplingWrapper::global().output_verifying_key,
+        &SaplingWrapper::global().mint_verifying_key,
     )
     .expect_err("Should not verify if spend verifying key is wrong");
 }
@@ -601,9 +601,9 @@ fn test_batch_verify_wrong_output_params() {
         .expect("Should verify using Sapling params");
     internal_batch_verify_transactions(
         [&transaction1, &transaction2],
-        &SAPLING.spend_verifying_key,
+        &SaplingWrapper::global().spend_verifying_key,
         &wrong_output_vk,
-        &SAPLING.mint_verifying_key,
+        &SaplingWrapper::global().mint_verifying_key,
     )
     .expect_err("Should not verify if output verifying key is wrong");
 }
@@ -694,8 +694,8 @@ fn test_batch_verify_wrong_mint_params() {
         .expect("Should verify using Sapling params");
     internal_batch_verify_transactions(
         [&transaction1, &transaction2],
-        &SAPLING.spend_verifying_key,
-        &SAPLING.output_verifying_key,
+        &SaplingWrapper::global().spend_verifying_key,
+        &SaplingWrapper::global().output_verifying_key,
         &wrong_mint_vk,
     )
     .expect_err("Should not verify if mint verifying key is wrong");

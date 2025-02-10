@@ -28,7 +28,7 @@ use crate::transaction::verify::verify_spend_proof;
 use crate::{
     merkle_note::{position as witness_position, sapling_auth_path},
     note::Note,
-    sapling_bls12::SAPLING,
+    sapling_bls12::SaplingWrapper,
     witness::WitnessTrait,
     ViewKey,
 };
@@ -117,7 +117,7 @@ impl SpendBuilder {
         // Proof that the spend was valid and successful for the provided owner
         // and note.
         let proof =
-            groth16::create_random_proof(circuit, &SAPLING.spend_params, &mut thread_rng())?;
+            groth16::create_random_proof(circuit, &SaplingWrapper::global().spend_params, &mut thread_rng())?;
 
         // Bytes to be placed into the nullifier set to verify whether this note
         // has been previously spent.

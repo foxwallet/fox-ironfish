@@ -34,15 +34,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "aho-corasick"
-version = "0.7.20"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cc936419f96fa211c1b9166887b38e5e40b19958e5b895be7c1f93adec7071ac"
-dependencies = [
- "memchr",
-]
-
-[[package]]
 name = "anes"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -109,12 +100,6 @@ name = "base16ct"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4c7f02d4ea65f2c1853089ffd8d2787bdbc63de2f0d29dedbcf8ccdfa0ccd4cf"
-
-[[package]]
-name = "base64"
-version = "0.13.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9e1b586273c5702936fe7b7d6896644d8be71e6314cfe09d3167c95f712589e8"
 
 [[package]]
 name = "base64"
@@ -527,15 +512,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f7144d30dcf0fafbce74250a3963025d8d52177934239851c917d29f1df280c2"
 
 [[package]]
-name = "convert_case"
-version = "0.6.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec182b0ca2f35d8fc196cf3404988fd8b8c739a4d270ff118a398feb0cbec1ca"
-dependencies = [
- "unicode-segmentation",
-]
-
-[[package]]
 name = "core-foundation"
 version = "0.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -689,16 +665,6 @@ dependencies = [
  "salsa20",
  "subtle",
  "zeroize",
-]
-
-[[package]]
-name = "ctor"
-version = "0.2.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1586fa608b1dab41f667475b4a41faec5ba680aee428bfa5de4ea520fdc6e901"
-dependencies = [
- "quote",
- "syn 2.0.77",
 ]
 
 [[package]]
@@ -1480,6 +1446,7 @@ dependencies = [
  "ironfish-jubjub",
  "ironfish_zkp",
  "lazy_static",
+ "once_cell",
  "rand",
  "reqwest",
  "sha2 0.10.6",
@@ -1623,24 +1590,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "ironfish-rust-nodejs"
-version = "0.1.0"
-dependencies = [
- "base64 0.13.1",
- "fish_hash",
- "ironfish",
- "ironfish-frost",
- "ironfish-jubjub",
- "libc",
- "napi",
- "napi-build",
- "napi-derive",
- "num_cpus",
- "rand",
- "signal-hook",
-]
-
-[[package]]
 name = "ironfish-wasm"
 version = "0.1.0"
 dependencies = [
@@ -1669,7 +1618,7 @@ dependencies = [
  "ironfish-bellperson",
  "ironfish-jubjub",
  "ironfish-primitives",
- "ironfish-proofs",
+ "ironfish-proofs 0.1.0",
  "lazy_static",
  "rand",
 ]
@@ -1746,16 +1695,6 @@ name = "libc"
 version = "0.2.150"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "89d92a4743f9a61002fae18374ed11e7973f530cb3a3255fb354818118b2203c"
-
-[[package]]
-name = "libloading"
-version = "0.8.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4979f22fdb869068da03c9f7528f8297c6fd2606bc3a4affe42e6a823fdb8da4"
-dependencies = [
- "cfg-if",
- "windows-targets",
-]
 
 [[package]]
 name = "libm"
@@ -1855,63 +1794,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "napi"
-version = "2.16.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1277600d452e570cc83cf5f4e8efb389cc21e5cbefadcfba7239f4551e2e3e99"
-dependencies = [
- "bitflags 2.3.3",
- "ctor",
- "napi-derive",
- "napi-sys",
- "once_cell",
-]
-
-[[package]]
-name = "napi-build"
-version = "2.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "882a73d9ef23e8dc2ebbffb6a6ae2ef467c0f18ac10711e4cc59c5485d41df0e"
-
-[[package]]
-name = "napi-derive"
-version = "2.16.11"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "150d87c4440b9f4815cb454918db498b5aae9a57aa743d20783fe75381181d01"
-dependencies = [
- "cfg-if",
- "convert_case",
- "napi-derive-backend",
- "proc-macro2",
- "quote",
- "syn 2.0.77",
-]
-
-[[package]]
-name = "napi-derive-backend"
-version = "1.0.73"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0cd81b794fc1d6051acf8c4f3cb4f82833b0621272a232b4ff0cf3df1dbddb61"
-dependencies = [
- "convert_case",
- "once_cell",
- "proc-macro2",
- "quote",
- "regex",
- "semver",
- "syn 2.0.77",
-]
-
-[[package]]
-name = "napi-sys"
-version = "2.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "427802e8ec3a734331fec1035594a210ce1ff4dc5bc1950530920ab717964ea3"
-dependencies = [
- "libloading",
-]
-
-[[package]]
 name = "native-tls"
 version = "0.2.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1977,9 +1859,9 @@ dependencies = [
 
 [[package]]
 name = "once_cell"
-version = "1.19.0"
+version = "1.20.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3fdb12b2476b595f9358c5161aa467c2438859caa136dec86c26fdd2efe17b92"
+checksum = "945462a4b81e43c4e3ba96bd7b49d834c6f61198356aa858733bc4acf3cbe62e"
 
 [[package]]
 name = "oorandom"
@@ -2400,8 +2282,6 @@ version = "1.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "48aaa5748ba571fb95cd2c85c09f629215d3a6ece942baa100950af03a34f733"
 dependencies = [
- "aho-corasick",
- "memchr",
  "regex-syntax",
 ]
 
@@ -2417,7 +2297,7 @@ version = "0.11.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cde824a14b7c14f85caff81225f411faacc04a2013f41670f41443742b1c1c55"
 dependencies = [
- "base64 0.21.2",
+ "base64",
  "bytes",
  "encoding_rs",
  "futures-core",
@@ -2631,25 +2511,6 @@ dependencies = [
  "cfg-if",
  "cpufeatures",
  "digest 0.10.6",
-]
-
-[[package]]
-name = "signal-hook"
-version = "0.3.17"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8621587d4798caf8eb44879d42e56b9a93ea5dcd315a6487c357130095b62801"
-dependencies = [
- "libc",
- "signal-hook-registry",
-]
-
-[[package]]
-name = "signal-hook-registry"
-version = "1.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a9e9e0b4211b72e7b8b6e85c807d36c212bdb33ea8587f7569562a84df5465b1"
-dependencies = [
- "libc",
 ]
 
 [[package]]
@@ -3003,12 +2864,6 @@ checksum = "5c5713f0fc4b5db668a2ac63cdb7bb4469d8c9fed047b1d0292cc7b0ce2ba921"
 dependencies = [
  "tinyvec",
 ]
-
-[[package]]
-name = "unicode-segmentation"
-version = "1.10.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1dd624098567895118886609431a7c3b8f516e41d30e0643f03d94592a147e36"
 
 [[package]]
 name = "unicode-xid"

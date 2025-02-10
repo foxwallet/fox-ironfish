@@ -32,7 +32,7 @@ pub mod fish_hash;
 pub mod multisig;
 pub mod nacl;
 pub mod rolling_filter;
-pub mod signal_catcher;
+// pub mod signal_catcher;
 pub mod structs;
 pub mod xchacha20poly1305;
 
